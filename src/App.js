@@ -13,6 +13,7 @@ function App() {
 const  URL = `https://pokeapi.co/api/v2/pokemon/${number}`;
 
   useEffect(() => {
+    if(!number) return;
     axios.get(URL).then((response) => {
      console.log(response.data )
       setData(response.data);
@@ -21,7 +22,7 @@ const  URL = `https://pokeapi.co/api/v2/pokemon/${number}`;
     }).catch((err) => {
       window.alert(err);
     })
-  },[URL]);
+  },[number]);
 
 
   return (
@@ -31,14 +32,14 @@ const  URL = `https://pokeapi.co/api/v2/pokemon/${number}`;
      <button>Show</button>
      <h2>Name : {name}</h2>
      <h3 >Weight : {weight}</h3>
-     <img src={data ? data.sprites.other.dream_world.front_default :"<p>Loading</p>"} alt="" />
+     <img src={data  ? data.sprites.other.dream_world.front_default :"<p>Loading</p>"} alt="" />
       <p>My abilities are:</p>
       {data ? data.abilities.map((value,key) => {
         return(
           <div key={key}>
             {value.ability.name}
           </div>
-        )
+        ) 
       }):""}
     </div>
   );
